@@ -24,7 +24,9 @@
             return response.text()
           }),
         )
-        app.innerHTML = renderBoard(notes.flatMap(parseTodos))
+        // sv-SE formats the local date as YYYY-MM-DD
+        const today = new Date().toLocaleDateString('sv-SE')
+        app.innerHTML = renderBoard(notes.flatMap(parseTodos), today)
       } catch (error) {
         app.textContent = `회의록을 읽지 못했습니다. ${error.message}`
       }
