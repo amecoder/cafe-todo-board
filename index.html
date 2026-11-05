@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>모퉁이 카페 할 일 보드</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>모퉁이 카페 할 일 보드</h1>
+    <main id="app"><p>불러오는 중입니다.</p></main>
+    <footer>
+      연습용으로 만든 페이지이며 「모퉁이 카페」는 지어낸 가게입니다. 방문 정보를 모으지 않습니다(GitHub Pages는 보안 목적으로 방문자 IP를 기록합니다).
+    </footer>
+    <script type="module">
+      import { NOTES, parseTodos, renderBoard } from './board.js'
+
+      const app = document.querySelector('#app')
+      try {
+        const notes = await Promise.all(
+          NOTES.map(async (path) => {
+            const response = await fetch(path)
+            if (!response.ok) throw new Error(`${path}: ${response.status}`)
+            return response.text()
+          }),
+        )
+        app.innerHTML = renderBoard(notes.flatMap(parseTodos))
+      } catch (error) {
+        app.textContent = `회의록을 읽지 못했습니다. ${error.message}`
+      }
+    </script>
+  </body>
+</html>
