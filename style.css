@@ -65,6 +65,8 @@ dt {
 
 dd {
   margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 footer {

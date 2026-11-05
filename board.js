@@ -2,10 +2,9 @@
 // No DOM access here, so check.mjs can run the same code in Node.
 
 export const NOTES = ['notes/2026-10-27-weekly.md', 'notes/2026-10-29-extra.md']
-export const ROLES = ['메뉴·글 담당', '재료·사진 담당']
 
-const escapeHtml = (text) =>
-  text.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+export const escapeHtml = (text) =>
+  text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 
 export function parseTodos(markdown) {
   const meeting = markdown.match(/\d{4}-\d{2}-\d{2}/)?.[0]
